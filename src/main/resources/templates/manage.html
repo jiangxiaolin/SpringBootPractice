@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Management</title>
+    <!--html5默认设置-->
+    <link rel="stylesheet" href="css/normalize.css" />
+
+    <!--css3必要样式-->
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+        $("#insertButton").on("click",function () {
+            var name = $(" input[ name='name' ] ").val();
+            var url = $(" input[ name='url' ] ").val();
+            var dataJ = {name:name,url:url};
+            $.ajax({
+                url:"/films/add",
+                method:"post",
+                data:dataJ,
+                success:function (data) {
+                    alert(data);
+                },
+                error:function (data) {
+                    alert("出错了  "+ dataJ.name+" "+dataJ.url);
+
+                }
+            })
+        })
+        })
+    </script>
+</head>
+<body>
+<center>
+ <div id="insert">
+        <input type="text" name= "name" placeholder="资源名字" />
+        <input type="text" name= "url" placeholder="网盘地址" />
+        <button id="insertButton">添加</button>
+ </div>
+    <p th:text="#{jxl}"></p>
+</center>
+</body>
+</html>

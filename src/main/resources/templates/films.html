@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Find what u want</title>
+    <!--html5默认设置-->
+    <link rel="stylesheet" href="css/normalize.css" />
+
+    <!--css3必要样式-->
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" type="text/css" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+
+            $(".update").on("click",function(){
+                var name = $(".name").text();
+                var url =  $(".url").text();
+                alert(name+url);
+            })
+
+            $(".delete").on("click",function(){
+                alert("k");
+            })
+
+
+
+            }
+        )
+
+    </script>
+
+</head>
+<body>
+<table border="1" align="center" class="table">
+    <thead>
+    <tr>
+        <th>电影名</th>
+        <th>资源路径</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+<tr th:each="li : ${result.msg}">
+    <td class="name" th:text="${li.id}">id</td>
+    <td class="name" th:text="${li.name}">name</td>
+    <td class= "url" th:text="${li.url}">url</td>
+    <td><a class="update">更新</a></td>
+    <td><a class="delete">删除</a></td>
+</tr>
+    </tbody>
+</table>
+</body>
+</html>

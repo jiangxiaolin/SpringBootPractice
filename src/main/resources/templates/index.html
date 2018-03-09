@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Find what u want</title>
+    <!--html5默认设置-->
+    <link rel="stylesheet" href="css/normalize.css" />
+
+    <!--css3必要样式-->
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+        $("#searchButton").on("click",function () {
+            var name = $(" input[ name='resource' ] ").val();
+            $.ajax({
+                url:"/films/find",
+                method:"get",
+                data:{name:name},
+                success:function (result) {
+                    var da = "";
+                    var tmp = result.msg;
+                    $.each(tmp,function(index){
+                        var name = tmp[index].name;
+                        var url = tmp[index].url;
+                        da += name +" " + url;
+                        $("#films").show().html(da+"<p></p>");
+                    })
+                },
+                error:function (data) {
+                    alert("No Resource Find ! Sorry !");
+                }
+            })
+        })
+        })
+    </script>
+</head>
+<body>
+<section class="webdesigntuts-workshop">
+ <div id="searchPart">
+        <input type="search" name= "resource" placeholder="What are you looking for?" />
+        <button id="searchButton">Search</button>
+ </div>
+    <p></p>
+    <p></p>
+    <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+        <p> <font id="films" color="#FFFFFF" hidden="hidden">U cannot See me !</font></p>
+        <ul class="list-group">
+            <li class="list-group-item">name</li>
+            <li class="list-group-item">url</li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>
