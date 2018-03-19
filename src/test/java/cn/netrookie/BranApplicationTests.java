@@ -72,10 +72,10 @@ public class BranApplicationTests {
 	@Test
 	public void insertTxt(){
 		try{
-			String URL_REGEX = "链接：http://pan.baidu.com/s/[0-9a-zA-Z]+ 密码：[0-9a-zA-Z]+";
+			String URL_REGEX = "链接：http(s)?://pan.baidu.com/s/[0-9a-zA-Z_-]+ 密码：[0-9a-zA-Z_-]+";
 			Pattern urlPattern = Pattern.compile(URL_REGEX);
 			//Map<String,String> urlmap = new HashMap<String, String>();
-			List<String> list =  IOUtils.readLines(BranApplicationTests.class.getResourceAsStream("/pan2.txt"),"UTF-8");
+			List<String> list =  IOUtils.readLines(BranApplicationTests.class.getResourceAsStream("/pan.txt"),"UTF-8");
 			for(int i=0;i<list.size();i++){
 				String str = list.get(i);
 				if(!str.contains("链接")){continue;}
@@ -84,6 +84,7 @@ public class BranApplicationTests {
 				if (matcher.find()){
 					if(filmRepository.findByName(name).isEmpty()){
 						filmRepository.save(new Film(name,matcher.group()));
+						System.out.println("此处插入 ： "+ name);
 					}
 				}
 			}
