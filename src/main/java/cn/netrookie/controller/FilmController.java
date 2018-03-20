@@ -5,6 +5,7 @@ import cn.netrookie.common.Result;
 import cn.netrookie.repository.FilmRepository;
 import cn.netrookie.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping(value="/films")
 public class FilmController {
     @Autowired
@@ -22,7 +23,7 @@ public class FilmController {
     @Autowired
     private FilmService filmService;
 
-
+    @ResponseBody
     @RequestMapping(value="/show")
     public List<Film> showAllFilms(){
         List<Film> list = filmService.getFilmList();
@@ -34,7 +35,7 @@ public class FilmController {
 
     @ResponseBody
     @RequestMapping(value="/add",produces="text/html;charset=UTF-8")
-    public String addFilm(Model model, HttpServletRequest request, HttpServletResponse response){
+    public String addFilm(Model model, HttpServletRequest request){
         String name = request.getParameter("name");
         String url = request.getParameter("url");
         model.addAttribute("jxl","ssssss");
@@ -46,18 +47,19 @@ public class FilmController {
     }
     }
 
+    @ResponseBody
     @RequestMapping(value="/find")
-    public Result findOne(Model model,HttpServletRequest request){
+    public Result findOne(HttpServletRequest request){
         Result result = Result.toDefault();
         String name=request.getParameter("name");
-        if(!filmService.getFilmByName(name).isEmpty()){
-            result.setMsg(filmService.getFilmByName(name));
+        if(!filmRepository.findByName(name).isEmpty()){
+            result.setMsg(filmRepository.findByName(name));
         }else{
             result.failed();
         }
         return result;
     }
-
+    @ResponseBody
     @RequestMapping(value="update")
     public Result updateInfo(Model model,HttpServletRequest request){
         Result result = Result.toDefault();
@@ -72,7 +74,7 @@ public class FilmController {
         }
         return result;
     }
-
+    @ResponseBody
     @RequestMapping(value="delete")
     public Result deleteFilm(Model model,HttpServletRequest request){
         Result result = Result.toDefault();

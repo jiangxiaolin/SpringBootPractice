@@ -15,19 +15,26 @@
         $(function(){
         $("#searchButton").on("click",function () {
             var name = $(" input[ name='resource' ] ").val();
+            if(isEmpty(name)){
+                alert(name+"输入为空，请输入文本 ！");
+                return false;
+            }
             $.ajax({
                 url:"/films/find",
                 method:"get",
                 data:{name:name},
                 success:function (result) {
-                    var da = "";
-                    var tmp = result.msg;
-                    $.each(tmp,function(index){
-                        var name = tmp[index].name;
-                        var url = tmp[index].url;
-                        da += name +" " + url;
-                        $("#films").show().html(da+"<p></p>");
-                    })
+                    if(result.msg == null){alert("  No such resource !")}
+                    else{
+                        var da = "";
+                        var tmp = result.msg;
+                        $.each(tmp,function(index){
+                            var name = tmp[index].name;
+                            var url = tmp[index].url;
+                            da += name +" " + url;
+                            $("#films").show().html(da+"<p></p>");
+                        })
+                    }
                 },
                 error:function (data) {
                     alert("No Resource Find ! Sorry !");
@@ -35,6 +42,15 @@
             })
         })
         })
+
+
+        function isEmpty(obj) {
+            if(typeof obj == "undefined" || obj==null || obj==""){
+                return true;
+            }else{
+                return false;
+            }
+        }
     </script>
 </head>
 <body>

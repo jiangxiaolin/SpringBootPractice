@@ -11,7 +11,7 @@ import java.util.List;
 public interface FilmRepository extends JpaRepository<Film, Long> {
     Film findById(Long id);
 
-    @Query("from Film f where f.name like %:name%")
+    @Query("select f from Film f where f.name like %:name%")
     List<Film> findByName(@Param("name")String name);
 
     Film findByNameAndUrl(@Param("name")String name,@Param("url")String url);
