@@ -1,4 +1,4 @@
-# SpringBootPractice
+# FindResource
 Spring Boot 练习项目
 目标：
 1. 电影小说等影视资源的查找和管理
@@ -20,3 +20,7 @@ Todolist:
 2. 登录注册
 3. nlp处理查询
 4. 权限管理
+
+地址： http://106.14.174.28/
+
+欢迎联系：jxlbran7@gmail.com
